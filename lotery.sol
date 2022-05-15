@@ -6,7 +6,7 @@ contract Lottery
     address public owner;
     address payable public winner;
     uint public startTime;
-    address payable[] public participants;
+    address[] public participants;
 
     constructor() 
     {
@@ -28,8 +28,8 @@ contract Lottery
 
     function participate() public payable 
     {
-        require(msg.value >= .1 ether, "Now enough ethereum");
-        participants.push(payable(msg.sender));
+        require(msg.value >= .1 ether, "Not enough ethereum");
+        participants.push(msg.sender);
     }
 
     function randomNumber() public view returns (uint) 
@@ -40,7 +40,7 @@ contract Lottery
     function makeLottery() checkOwner public
     {
         uint index = randomNumber() % participants.length;
-        winner = participants[index];
+        winner = payable(participants[index]);
     }
 
     function checkWinner() checkDate public
