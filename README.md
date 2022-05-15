@@ -1,0 +1,2 @@
+# lottery
+Simple lottery
